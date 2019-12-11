@@ -1,0 +1,31 @@
+.rate-list-item {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.rate-list-item:not(:last-child) {
+    border-bottom: 1px solid rgb(126, 126, 126);
+    padding-bottom: 5px;
+}
+
+ul {
+    list-style: none;
+    padding: 0 25px;
+}
+
+h2 { margin: 0 }
+
+.daily-rates-wrapper {
+    flex-basis: 20%;
+    border: 1px solid black;
+}
+
+.daily-rates-header {
+    background: #1a237e;
+    padding: 10px;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
