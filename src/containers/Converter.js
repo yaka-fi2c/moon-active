@@ -8,9 +8,9 @@ import converter from './converter.css'
 @inject('ratesStore')
 @observer
 export default class Converter extends React.Component {
-  handleCange = e => { this.props.ratesStore.setSourceAmount(e.target.value); console.log(e.target.value) };
-  onSelectFromChange = e => this.props.ratesStore.setBaseCoin(e.target.value);
-  onSelectToChange = e => console.log(this.props.ratesStore.currencies);
+  handleCange = e => this.props.ratesStore.setSourceAmount(e.target.value);
+  onSelectBaseChange = e => this.props.ratesStore.setBaseCurrency(e.target.value);
+  onSelectTargetChange = e => this.props.ratesStore.setTargetCurrency(e.target.value);
 
   render() {
     const ratesStore = this.props.ratesStore;
@@ -23,27 +23,27 @@ export default class Converter extends React.Component {
               value={parseFloat(ratesStore.sourceAmount).toFixed(2)}
               disabled={false} />
             <CurrencySelect
-              value={ratesStore.baseCoinValue.key}
+              value={ratesStore.baseConversionCoin.key}
               currencies={ratesStore.currencies}
-              onChange={this.onSelectFromChange}
+              onChange={this.onSelectBaseChange}
             />
           </div>
           <div className="to">
             <AmountInput
               onChange={this.handleCange}
-              value={parseFloat(ratesStore.sourceAmount * ratesStore.targetCoinValue.value).toFixed(2)}
+              value={parseFloat(ratesStore.sourceAmount * ratesStore.targetConversionCoin.value).toFixed(2)}
               disabled={true} />
             <CurrencySelect
-              value={ratesStore.targetCoinValue.key}
+              value={ratesStore.targetConversionCoin.key}
               currencies={ratesStore.currencies}
-              onChange={this.onSelectToChange}
+              onChange={this.onSelectTargetChange}
             />
           </div>
         </div>
         <div className="conversion-details">
           <ConversionDetails
-          baseCoin = {ratesStore.baseCoin}
-            results={parseFloat(ratesStore.sourceAmount * ratesStore.targetCoinValue.value).toFixed(4)}
+            baseCoin={ratesStore.baseCoin}
+            results={parseFloat(ratesStore.sourceAmount * ratesStore.targetConversionCoin.value).toFixed(4)}
             timeStamp={ratesStore.timeStamp} />
         </div>
       </div>

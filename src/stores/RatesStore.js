@@ -1,24 +1,16 @@
 import { observable, action, autorun, computed, runInAction, getAtom } from 'mobx';
 import { getRates, getHistoricalRates } from '../services/backendService';
-
+import { findCoinBase } from '../utils/utils';
 
 class RatesStore {
 
     @observable todaysRate = [];
     @observable currencies = [];
-    @observable baseCoin = 'USD';
-    @observable baseConversionCoin = {};
+    @observable baseConversionCoin = {}
     @observable targetConversionCoin = {};
     @observable sourceAmount = 1000;
     @observable timeStamp;
 
-    @action setSourceAmount(updatedAmount) {
-        this.sourceAmount = updatedAmount;
-    }
-
-    @action setBaseCoin(coin) {
-        this.baseConverterCoin = coin;
-    }
 
     @action async todaysRatesData() {
         const data = await getRates();
@@ -33,18 +25,22 @@ class RatesStore {
             }
             this.currencies.push({ key: key, value: value })
         }
-            this.timeStamp = data.date;
+        this.timeStamp = data.date;
+        this.baseConversionCoin = findCoinBase(this.currencies, "USD");
+        this.targetConversionCoin = findCoinBase(this.currencies, "ILS");
     }
 
-    @computed get baseCoinValue() {
-        return this.currencies.find(el => el.key === "USD");
+    @action setBaseCurrency(coin) {
+        this.baseConversionCoin = findCoinBase(this.currencies, coin);
     }
 
-    @computed get targetCoinValue() {
-        return this.currencies.find(el => el.key === "ILS");
+    @action setTargetCurrency(coin) {
+        this.targetConversionCoin = findCoinBase(this.currencies, coin);
     }
 
-
+    @action setSourceAmount(updatedAmount) {
+        this.sourceAmount = updatedAmount;
+    }
 }
 
 export const ratesStore = new RatesStore();
