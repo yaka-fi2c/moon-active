@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextField, MenuItem } from '@material-ui/core';
+import currencySelect from './currencySelect.css';
 
 export default class CurrencySelect extends React.Component {
     constructor(props) {
@@ -7,8 +8,7 @@ export default class CurrencySelect extends React.Component {
     }
     render() {
         return (
-            <div>
-                <div>
+            <div className="select-wrapper">
                     <TextField
                         id="filled-select-currency"
                         select
@@ -17,6 +17,7 @@ export default class CurrencySelect extends React.Component {
                         variant="outlined"
                         onChange={this.props.onChange}
                         value={this.props.value}
+                        fullWidth
                     >
                         {this.props.currencies.map((option, ind) => (
                             <MenuItem key={ind} value={option.key}>
@@ -24,7 +25,6 @@ export default class CurrencySelect extends React.Component {
                             </MenuItem>
                         ))}
                     </TextField>
-                </div>
             </div>
         )
     }

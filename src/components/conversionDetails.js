@@ -9,9 +9,9 @@ export default class ConversionDetails extends React.Component {
 
         return (
             <div className="details-wrapper">
-                <p>Your rate:</p>
-                <h2>{this.props.baseCoin} 1</h2>
-                <p>Last updated</p>
+                <p>Your rate: {this.props.results}</p>
+                <h2>1 {this.props.baseCoin}</h2>
+                <p>Last updated: {this.props.timeStamp}</p>
             </div>
         )
     }

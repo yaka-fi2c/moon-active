@@ -7,10 +7,10 @@ class RatesStore {
     @observable todaysRate = [];
     @observable currencies = [];
     @observable baseCoin = 'USD';
-    @observable baseConverterCoin = 'USD';
-    @observable historicalRates = 'this is test historical';
+    @observable baseConversionCoin = {};
+    @observable targetConversionCoin = {};
     @observable sourceAmount = 1000;
-    @observable currentRate = 'test current rate';
+    @observable timeStamp;
 
     @action setSourceAmount(updatedAmount) {
         this.sourceAmount = updatedAmount;
@@ -33,15 +33,17 @@ class RatesStore {
             }
             this.currencies.push({ key: key, value: value })
         }
+            this.timeStamp = data.date;
     }
 
-    @computed get historicalRatesData() {
-        return this.historicalRates;
+    @computed get baseCoinValue() {
+        return this.currencies.find(el => el.key === "USD");
     }
 
-    addHistoricalRates(rates) {
-        this.historicalRates.push(rates)
+    @computed get targetCoinValue() {
+        return this.currencies.find(el => el.key === "ILS");
     }
+
 
 }
 

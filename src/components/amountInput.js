@@ -9,17 +9,17 @@ export default class AmountInput extends React.Component {
     render() {
 
         return (
-            <div>
-                <div className="input-wrapper">
-                    <TextField type="number"
-                        step="0.1"
-                        onChange={this.props.onChange}
-                        value={this.props.value}
-                        disabled={this.props.disabled}
-                        id="outlined-basic"
-                        name="outlined-basic"
-                        variant="outlined" />
-                </div>
+            <div className="input-wrapper">
+                <TextField type="number"
+                    step="0.1"
+                    onChange={this.props.onChange}
+                    value={this.props.value}
+                    disabled={this.props.disabled}
+                    id="outlined-basic"
+                    name="outlined-basic"
+                    variant="outlined" 
+                    fullWidth
+                    />
             </div>
         )
     }

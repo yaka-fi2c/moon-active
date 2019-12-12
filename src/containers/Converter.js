@@ -9,7 +9,8 @@ import converter from './converter.css'
 @observer
 export default class Converter extends React.Component {
   handleCange = e => { this.props.ratesStore.setSourceAmount(e.target.value); console.log(e.target.value) };
-  onSelectChange = e => this.props.ratesStore.setBaseCoin(e.target.value);
+  onSelectFromChange = e => this.props.ratesStore.setBaseCoin(e.target.value);
+  onSelectToChange = e => console.log(this.props.ratesStore.currencies);
 
   render() {
     const ratesStore = this.props.ratesStore;
@@ -21,18 +22,29 @@ export default class Converter extends React.Component {
               onChange={this.handleCange}
               value={parseFloat(ratesStore.sourceAmount).toFixed(2)}
               disabled={false} />
-            <CurrencySelect value={ratesStore.baseConverterCoin} currencies={ratesStore.currencies} onChange={this.onSelectChange} />
+            <CurrencySelect
+              value={ratesStore.baseCoinValue.key}
+              currencies={ratesStore.currencies}
+              onChange={this.onSelectFromChange}
+            />
           </div>
           <div className="to">
             <AmountInput
               onChange={this.handleCange}
-              value={parseFloat(ratesStore.sourceAmount).toFixed(2)}
+              value={parseFloat(ratesStore.sourceAmount * ratesStore.targetCoinValue.value).toFixed(2)}
               disabled={true} />
-            <CurrencySelect value={ratesStore.baseConverterCoin} currencies={ratesStore.currencies} onChange={this.onSelectChange} />
+            <CurrencySelect
+              value={ratesStore.targetCoinValue.key}
+              currencies={ratesStore.currencies}
+              onChange={this.onSelectToChange}
+            />
           </div>
         </div>
         <div className="conversion-details">
-          <ConversionDetails />
+          <ConversionDetails
+          baseCoin = {ratesStore.baseCoin}
+            results={parseFloat(ratesStore.sourceAmount * ratesStore.targetCoinValue.value).toFixed(4)}
+            timeStamp={ratesStore.timeStamp} />
         </div>
       </div>
     )
