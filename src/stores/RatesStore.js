@@ -5,7 +5,9 @@ import { getRates, getHistoricalRates } from '../services/backendService';
 class RatesStore {
 
     @observable todaysRate = [];
+    @observable currencies = [];
     @observable baseCoin = 'USD';
+    @observable baseConverterCoin = 'USD';
     @observable historicalRates = 'this is test historical';
     @observable sourceAmount = 1000;
     @observable currentRate = 'test current rate';
@@ -14,6 +16,9 @@ class RatesStore {
         this.sourceAmount = updatedAmount;
     }
 
+    @action setBaseCoin(coin) {
+        this.baseConverterCoin = coin;
+    }
 
     @action async todaysRatesData() {
         const data = await getRates();
@@ -23,18 +28,15 @@ class RatesStore {
                 key === "CAD" ||
                 key === "MXN" ||
                 key === "JPY" ||
-                key === "ILS" ) {
-                    this.todaysRate.push({ key: key, value: value})
-                }
+                key === "ILS") {
+                this.todaysRate.push({ key: key, value: value })
+            }
+            this.currencies.push({ key: key, value: value })
         }
     }
 
     @computed get historicalRatesData() {
         return this.historicalRates;
-    }
-
-    addRates(rates) {
-        this.todaysRate.push(rates)
     }
 
     addHistoricalRates(rates) {

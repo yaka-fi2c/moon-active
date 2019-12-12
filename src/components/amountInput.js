@@ -1,13 +1,24 @@
 import React from 'react';
-import { TextField } from '@material-ui/core';
+import { TextField, MenuItem } from '@material-ui/core';
 import "./amountInput.css";
 
 export default class AmountInput extends React.Component {
+    constructor(props) {
+        super(props)
+    }
     render() {
+
         return (
             <div>
                 <div className="input-wrapper">
-                    <TextField id="outlined-basic" label="from" variant="outlined" />
+                    <TextField type="number"
+                        step="0.1"
+                        onChange={this.props.onChange}
+                        value={this.props.value}
+                        disabled={this.props.disabled}
+                        id="outlined-basic"
+                        name="outlined-basic"
+                        variant="outlined" />
                 </div>
             </div>
         )

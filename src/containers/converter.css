@@ -1,0 +1,9 @@
+.from, .to {
+    display: flex;
+    margin-top: 15px;
+    justify-content: space-evenly;
+}
+
+.conversion-details {
+   padding: 10px 25px;
+}
