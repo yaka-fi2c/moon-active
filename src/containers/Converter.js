@@ -42,7 +42,8 @@ export default class Converter extends React.Component {
         </div>
         <div className="conversion-details">
           <ConversionDetails
-            baseCoin={ratesStore.baseCoin}
+            baseCoin={ratesStore.baseConversionCoin.key}
+            targetCoin={ratesStore.targetConversionCoin.key}
             results={parseFloat(ratesStore.sourceAmount * ratesStore.targetConversionCoin.value).toFixed(4)}
             timeStamp={ratesStore.timeStamp} />
         </div>

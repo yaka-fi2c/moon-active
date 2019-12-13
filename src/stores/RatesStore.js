@@ -1,12 +1,12 @@
-import { observable, action, autorun, computed, runInAction, getAtom } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { getRates, getHistoricalRates } from '../services/backendService';
-import { findCoinBase } from '../utils/utils';
+import { findCoinBase, calculateRatesByBase } from '../utils/utils';
 
 class RatesStore {
 
     @observable todaysRate = [];
     @observable currencies = [];
-    @observable baseConversionCoin = {}
+    @observable baseConversionCoin = {};
     @observable targetConversionCoin = {};
     @observable sourceAmount = 1000;
     @observable timeStamp;
@@ -14,6 +14,7 @@ class RatesStore {
 
     @action async todaysRatesData() {
         const data = await getRates();
+        console.log(data.rates)
         for (let [key, value] of Object.entries(data.rates)) {
             if (key === "EUR" ||
                 key === "GBP" ||
@@ -22,9 +23,9 @@ class RatesStore {
                 key === "JPY" ||
                 key === "ILS") {
                 this.todaysRate.push({ key: key, value: value })
-            }
+            };
             this.currencies.push({ key: key, value: value })
-        }
+        };
         this.timeStamp = data.date;
         this.baseConversionCoin = findCoinBase(this.currencies, "USD");
         this.targetConversionCoin = findCoinBase(this.currencies, "ILS");
@@ -40,6 +41,10 @@ class RatesStore {
 
     @action setSourceAmount(updatedAmount) {
         this.sourceAmount = updatedAmount;
+    }
+
+    @computed get convertCoinValues() {
+        return calculateRatesByBase(this.todaysRate, this.baseConversionCoin.value)
     }
 }
 

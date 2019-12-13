@@ -14,7 +14,7 @@ export default class TodaysRate extends React.Component {
           <span>1 {ratesStore.baseConversionCoin.key} =</span>
         </div>
         <ul>
-          {this.props.ratesStore.todaysRate.map((rate, ind) => (
+          {this.props.ratesStore.convertCoinValues.map((rate, ind) => (
             <li className="rate-list-item" key={ind}><span>{rate.key}</span><span>{rate.value.toFixed(4)}</span></li>
           ))}
         </ul>
