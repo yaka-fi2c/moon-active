@@ -13,7 +13,7 @@ class App extends React.Component {
     this.props.ratesStore.todaysRatesData();
   }
   render() {
-    const ratesStore = this.props.ratesStore;
+    // const ratesStore = this.props.ratesStore;
     return (
       <div className="App">
         <Header />

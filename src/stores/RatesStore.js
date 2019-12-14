@@ -37,11 +37,10 @@ class RatesStore {
 
     @action async historicalRates() {
         const historyData = await getHistoricalRates(this.baseConversionCoin.key, this.targetConversionCoin.key);
-        let i = 0;
+        this.ratesHistory = [];
         for (let [key, value] of Object.entries(historyData.rates)) {
             this.ratesHistory.push({ x: key, y: value[this.targetConversionCoin.key] });
         }
-        console.log(historyData.rates);
     }
 
     @action setBaseCurrency(coin) {
@@ -69,7 +68,7 @@ class RatesStore {
     }
 
     @computed get ratesHistoryValues() {
-        return getHistoryByPeriod(this.period, this.ratesHistory);
+        return getHistoryByPeriod(this.period, this.ratesHistory, this.baseConversionCoin.key);
     }
 }
 

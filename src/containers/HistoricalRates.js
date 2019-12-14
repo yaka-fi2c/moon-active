@@ -5,56 +5,78 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-function DisabledTabs() {
-  const [value, setValue] = React.useState(0);
-
-  function handleChange(event, newValue) {
-    setValue(newValue);
-  }
-
-  return (
-    <Paper square>
-      <Tabs
-        value={value}
-        indicatorColor="primary"
-        textColor="primary"
-        onChange={handleChange}
-        aria-label="disabled tabs example"
-      >
-        <Tab label="Last month" />
-        <Tab label="Last 3 months" />
-        <Tab label="Last 6 month" />
-        <Tab label="Last 12 month" />
-      </Tabs>
-    </Paper>
-  );
-}
-
 @inject('ratesStore')
 @observer
 export default class HistoricalRates extends React.Component {
+  state = {
+    value: 0,
+  };
+
   render() {
-
-    const handleChange = (event, newValue) => {
-      console.log(event, newValue)
-    };
     const ratesStore = this.props.ratesStore;
-
-    const data = [
-      {
-        key: 'Last Month', values: [...ratesStore.ratesHistoryValues]
+    const handleChange = (event, value) => {
+      this.setState({ value });
+      switch (value) {
+        case 0:
+          ratesStore.setPeriod(30);
+          break;
+        case 1:
+          ratesStore.setPeriod(90);
+          break;
+        case 2:
+          ratesStore.setPeriod(180);
+          break;
+        case 3:
+          ratesStore.setPeriod(365);
+          break
       }
-    ];
+    };
+
+    const dataCha = {
+      labels: ratesStore.ratesHistoryValues.map(el => el.x),
+      datasets: [
+        {
+          backgroundColor: 'rgba(75,192,192,0.4)',
+          borderColor: 'rgba(75,192,192,1)',
+          borderCapStyle: 'butt',
+          borderJoinStyle: 'miter',
+          pointBorderColor: 'rgba(75,192,192,1)',
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          pointHoverBorderWidth: 2,
+          pointRadius: 2,
+          pointHitRadius: 10,
+          label: 'rate was:',
+          data: ratesStore.ratesHistoryValues.map(el => el.y)
+        }
+      ]
+    }
 
     return (
       <div>
-        <DisabledTabs />
+        <Paper square>
+          <Tabs
+            value={this.state.value}
+            indicatorColor="primary"
+            textColor="primary"
+            onChange={handleChange}
+            aria-label="disabled tabs example"
+          >
+            <Tab label="Last month" />
+            <Tab label="Last 3 months" />
+            <Tab label="Last 6 month" />
+            <Tab label="Last 12 month" />
+          </Tabs>
+        </Paper>
         <DataChart
-          rates={data}
+          rates={dataCha}
           baseCoin={ratesStore.baseConversionCoin.key}
           targetCoin={ratesStore.targetConversionCoin.key}
         />
-      </div>
+      </div >
     )
   }
 }

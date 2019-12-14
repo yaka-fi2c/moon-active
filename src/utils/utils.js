@@ -9,10 +9,6 @@ export const calculateRatesByBase = (currencies, baseCoin) => {
     return todaysRates;
 };
 
-export const sortHistoryArray = () => {
-
-}
-
 export const setYears = () => {
     let currentTime = new Date();
     let month = currentTime.getMonth() + 1;
@@ -33,6 +29,6 @@ export const getHistoryByPeriod = (period, arr) => {
         return new Date(el.x) > priorDate
     }).sort((a, b) => {
         return new Date(b.x) - new Date(a.x);
-    });
+    })
     return data;
 }
