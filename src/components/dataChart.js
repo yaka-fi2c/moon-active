@@ -8,24 +8,9 @@ export default class DataChart extends React.Component {
     }
 
     render() {
-        const axisConfig = {
-            showXAxis: true,
-            showXAxisLabel: true,
-            xLabel: 'Time period',
-            xLabelPosition: 'right',
-            showYAxis: true,
-            showYAxisLabel: true,
-            yLabel: 'Coin rate',
-            yLabelPosition: 'top',
-        }
         return (
             <div className="chart-wrapper">
                 <h2>{this.props.baseCoin} VS {this.props.targetCoin}</h2>
-                {/* <AreaChart height={300}
-                    axisConfig={axisConfig}
-                    data={this.props.rates}
-                    noDataMessage={"Unavle to fetch rates, try again"}
-                /> */}
                 <div>
                     <Line
                         width={600}

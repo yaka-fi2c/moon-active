@@ -28,8 +28,16 @@ export default function DetailsTabs() {
                         onChange={handleChange}
                         aria-label="tabs"
                     >
-                        <Tab component={Link} to="/converter" label="Currency converter" />
-                        <Tab component={Link} to="/historical-rates" label="Historical rates" />
+                        <Tab
+                            component={Link}
+                            to="/converter"
+                            label="Currency converter"
+                        />
+                        <Tab
+                            component={Link}
+                            to="/historical-rates"
+                            label="Historical rates"
+                        />
                     </Tabs>
                 </Paper>
                 <Switch>

@@ -18,11 +18,22 @@ class App extends React.Component {
       <div className="App">
         <Header />
         <div className="content-wrapper">
-          <Grid container justify="space-around">
-            <Grid item xs={12} sm={6}>
+          <Grid
+            container
+            justify="space-around"
+            alignItems="stretch"
+          >
+            <Grid
+              item
+              xs={12}
+              sm={6}>
               <DetailsTabs />
             </Grid>
-            <Grid item xs={12} sm={4} >
+            <Grid
+              item
+              xs={12}
+              sm={3}
+            >
               <TodaysRate />
             </Grid>
           </Grid>

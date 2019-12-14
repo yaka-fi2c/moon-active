@@ -9,7 +9,7 @@ import converter from './converter.css'
 @observer
 export default class Converter extends React.Component {
   handleCange = e => this.props.ratesStore.setSourceAmount(e.target.value);
-  
+
   onSelectBaseChange = e => {
     this.props.ratesStore.setBaseCurrency(e.target.value);
     this.props.ratesStore.historicalRates();
@@ -28,23 +28,25 @@ export default class Converter extends React.Component {
           <div className="from">
             <AmountInput
               onChange={this.handleCange}
-              value={parseFloat(ratesStore.sourceAmount).toFixed(2)}
+              value={(Math.floor(ratesStore.sourceAmount * 20) / 20).toFixed(2)}
               disabled={false} />
             <CurrencySelect
               value={ratesStore.baseConversionCoin.key}
               currencies={ratesStore.currencies}
               onChange={this.onSelectBaseChange}
+              label={"Please select base currency"}
             />
           </div>
           <div className="to">
             <AmountInput
               onChange={this.handleCange}
-              value={(Math.floor(100 * ratesStore.calculatedAmount) / 100).toFixed(2)}
+              value={(Math.floor(ratesStore.calculatedAmount * 20) / 20).toFixed(2)}
               disabled={true} />
             <CurrencySelect
               value={ratesStore.targetConversionCoin.key}
               currencies={ratesStore.currencies}
               onChange={this.onSelectTargetChange}
+              label={"Please select target currency"}
             />
           </div>
         </div>

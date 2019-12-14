@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import todaysRate from './todaysRate.css'
+import Icon from '../components/icon';
 
 @inject('ratesStore')
 @observer
@@ -15,7 +16,16 @@ export default class TodaysRate extends React.Component {
         </div>
         <ul>
           {this.props.ratesStore.todaysRateCalc.map((rate, ind) => (
-            <li className="rate-list-item" key={ind}><span>{rate.key}</span><span>{(Math.floor(10000 * rate.value) / 10000).toFixed(4)}</span></li>
+            <li
+              className="rate-list-item"
+              key={ind}>
+              <div>
+                <Icon icon={rate.key} />
+                <span>{rate.key}</span>
+              </div>
+              <span>{(Math.floor(10000 * rate.value) / 10000).toFixed(4)}
+              </span>
+            </li>
           ))}
         </ul>
       </div>

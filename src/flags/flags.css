@@ -1,0 +1,162 @@
+/*!
+ * Generated with CSS Flag Sprite generator (https://www.flag-sprites.com/)
+ */
+.flag {
+    display: inline-block;
+    position: relative;
+    width: 16px;
+    height: 11px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background: url('https://www.flag-sprites.com/img/flags.png') no-repeat
+}
+
+
+.flag.THB {
+    background-position: -16px -143px;
+}
+
+.flag-text.THB::after {
+    content: 'a test'
+}
+
+.flag.TRY {
+    background-position: -144px -143px
+}
+
+
+.flag.DKK{
+    background-position: -64px -33px
+}
+
+
+.flag.CHF {
+    background-position: -96px -22px
+}
+
+
+.flag.BRL {
+    background-position: -176px -11px
+}
+
+
+.flag.HUF {
+    background-position: -224px -55px
+}
+
+.flag.SGD {
+    background-position: -224px -121px
+}
+
+
+.flag.ZAR {
+    background-position: -256px -154px
+}
+
+
+.flag.CZK {
+    background-position: -16px -33px
+}
+
+
+.flag.NOK {
+    background-position: -256px -99px
+}
+
+.flag.MXN {
+    background-position: -96px -99px
+}
+
+
+.flag.PHP {
+    background-position: -144px -110px
+}
+
+.flag.MYR{
+    background-position: -112px -99px
+}
+
+
+.flag.RUB {
+    background-position: -96px -121px
+}
+
+.flag.PLN{
+    background-position: -176px -110px
+}
+
+.flag.GBP {
+    background-position: -112px -44px
+}
+
+
+.flag.CAD {
+    background-position: -16px -22px
+}
+
+.flag.ISK {
+    background-position: -128px -66px
+}
+
+
+.flag.RON {
+    background-position: -64px -121px
+}
+
+
+.flag.INR {
+    background-position: -64px -66px
+}
+
+.flag.KRW{
+    background-position: -80px -77px
+}
+
+.flag.EUR {
+    background-position: -256px -33px
+}
+
+.flag.JPY{
+    background-position: -224px -66px
+}
+
+.flag.BGN {
+    background-position: -64px -11px
+}
+
+.flag.USD{
+    background-position: 0 -154px
+}
+
+.flag.SEK {
+    background-position: -208px -121px
+}
+
+.flag.IDR {
+    background-position: -256px -55px
+}
+
+.flag.HRK {
+    background-position: -192px -55px
+}
+
+.flag.HKD {
+    background-position: -144px -55px
+}
+
+.flag.CNY {
+    background-position: -176px -22px
+}
+
+.flag.AUD {
+    background-position: -192px 0
+}
+
+
+.flag.ILS{
+    background-position: -16px -66px
+}
+
+.flag.NZD {
+    background-position: -48px -110px
+}
