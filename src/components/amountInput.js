@@ -11,7 +11,7 @@ export default class AmountInput extends React.Component {
         return (
             <div className="input-wrapper">
                 <TextField type="number"
-                    step="0.1"
+                    step="0.05"
                     onChange={this.props.onChange}
                     value={this.props.value}
                     disabled={this.props.disabled}

@@ -15,7 +15,7 @@ export default class TodaysRate extends React.Component {
         </div>
         <ul>
           {this.props.ratesStore.convertCoinValues.map((rate, ind) => (
-            <li className="rate-list-item" key={ind}><span>{rate.key}</span><span>{rate.value.toFixed(4)}</span></li>
+            <li className="rate-list-item" key={ind}><span>{rate.key}</span><span>{(Math.floor(10000 * rate.value) / 10000).toFixed(4)}</span></li>
           ))}
         </ul>
       </div>

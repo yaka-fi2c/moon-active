@@ -4,6 +4,7 @@ import Header from './components/Header';
 import TodaysRate from './containers/TodaysRate';
 import DetailsTabs from './containers/DetailsTabs';
 import { inject, observer } from 'mobx-react';
+import { getHistoricalRates } from './services/backendService';
 
 @inject('ratesStore')
 @observer

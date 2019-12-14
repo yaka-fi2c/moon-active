@@ -9,8 +9,16 @@ import converter from './converter.css'
 @observer
 export default class Converter extends React.Component {
   handleCange = e => this.props.ratesStore.setSourceAmount(e.target.value);
-  onSelectBaseChange = e => this.props.ratesStore.setBaseCurrency(e.target.value);
-  onSelectTargetChange = e => this.props.ratesStore.setTargetCurrency(e.target.value);
+  
+  onSelectBaseChange = e => {
+    this.props.ratesStore.setBaseCurrency(e.target.value);
+    this.props.ratesStore.historicalRates();
+  };
+
+  onSelectTargetChange = e => {
+    this.props.ratesStore.setTargetCurrency(e.target.value);
+    this.props.ratesStore.historicalRates();
+  };
 
   render() {
     const ratesStore = this.props.ratesStore;
@@ -31,7 +39,7 @@ export default class Converter extends React.Component {
           <div className="to">
             <AmountInput
               onChange={this.handleCange}
-              value={parseFloat(ratesStore.sourceAmount * ratesStore.targetConversionCoin.value).toFixed(2)}
+              value={(Math.floor(100 * ratesStore.calculatedAmount) / 100).toFixed(2)}
               disabled={true} />
             <CurrencySelect
               value={ratesStore.targetConversionCoin.key}
@@ -44,7 +52,7 @@ export default class Converter extends React.Component {
           <ConversionDetails
             baseCoin={ratesStore.baseConversionCoin.key}
             targetCoin={ratesStore.targetConversionCoin.key}
-            results={parseFloat(ratesStore.sourceAmount * ratesStore.targetConversionCoin.value).toFixed(4)}
+            results={(Math.floor(10000 * ratesStore.calculatedAmount) / 10000).toFixed(4)}
             timeStamp={ratesStore.timeStamp} />
         </div>
       </div>
