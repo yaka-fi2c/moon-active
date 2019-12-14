@@ -3,8 +3,8 @@ import './App.css';
 import Header from './components/Header';
 import TodaysRate from './containers/TodaysRate';
 import DetailsTabs from './containers/DetailsTabs';
+import Grid from '@material-ui/core/Grid';
 import { inject, observer } from 'mobx-react';
-import { getHistoricalRates } from './services/backendService';
 
 @inject('ratesStore')
 @observer
@@ -18,8 +18,14 @@ class App extends React.Component {
       <div className="App">
         <Header />
         <div className="content-wrapper">
-          <DetailsTabs />
-          <TodaysRate />
+          <Grid container justify="space-around">
+            <Grid item xs={12} sm={6}>
+              <DetailsTabs />
+            </Grid>
+            <Grid item xs={12} sm={4} >
+              <TodaysRate />
+            </Grid>
+          </Grid>
         </div>
       </div>
     );

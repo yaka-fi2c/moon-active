@@ -1,6 +1,6 @@
 import { observable, action, computed } from 'mobx';
 import { getRates, getHistoricalRates } from '../services/backendService';
-import { findCoinBase, calculateRatesByBase, getHistoryByPeriod } from '../utils/utils';
+import { findCoinBase, calculateTodaysRate, getHistoryByPeriod, checkBaseCoin } from '../utils/utils';
 
 class RatesStore {
 
@@ -22,8 +22,7 @@ class RatesStore {
                 key === "GBP" ||
                 key === "CAD" ||
                 key === "MXN" ||
-                key === "JPY" ||
-                key === "ILS") {
+                key === "JPY") {
                 this.todaysRate.push({ key: key, value: value })
             };
             this.currencies.push({ key: key, value: value })
@@ -45,6 +44,7 @@ class RatesStore {
 
     @action setBaseCurrency(coin) {
         this.baseConversionCoin = findCoinBase(this.currencies, coin);
+        checkBaseCoin(this.baseConversionCoin, this.todaysRate, this.currencies);
     }
 
     @action setTargetCurrency(coin) {
@@ -59,8 +59,8 @@ class RatesStore {
         this.period = period;
     }
 
-    @computed get convertCoinValues() {
-        return calculateRatesByBase(this.todaysRate, this.baseConversionCoin.value);
+    @computed get todaysRateCalc() {
+        return calculateTodaysRate(this.todaysRate, this.baseConversionCoin, this.currencies, this.targetConversionCoin);
     }
 
     @computed get calculatedAmount() {
