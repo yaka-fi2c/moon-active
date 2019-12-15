@@ -1,8 +1,14 @@
 import { observable, action, computed } from 'mobx';
 import { getRates, getHistoricalRates } from '../services/backendService';
-import { findCoinBase, calculateTodaysRate, getHistoryByPeriod } from '../services/utils/utils';
+import {
+    findCoinBase,
+    calculateTodaysRate,
+    getHistoryByPeriod,
+    TODAYS_RATES_CURRENCIES,
+    getRatesData
+} from '../services/utils/utils';
 
-const TODAYS_RATES_CURRENCIES = ["EUR", "GBP", "CAD", "MXN", "JPY"];
+
 
 class RatesStore {
 
@@ -22,9 +28,9 @@ class RatesStore {
         const data = await getRates();
         for (let [key, value] of Object.entries(data.rates)) {
             if (TODAYS_RATES_CURRENCIES.includes(key)) {
-                this.todaysRates.push({ key: key, value: value })
+                this.todaysRates.push({ key: key, value: value });
             }
-            this.currencies.push({ key: key, value: value })
+            this.currencies.push({ key: key, value: value });
         };
         this.timeStamp = data.date;
         this.baseConversionCoin = findCoinBase(this.currencies, "USD");

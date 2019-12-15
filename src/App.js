@@ -3,7 +3,7 @@ import './App.css';
 import Header from './components/Header/Header';
 import TodaysRate from './containers/TodaysRates/TodaysRate';
 import DetailsTabs from './containers/DetailsTabs/DetailsTabs';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Button } from '@material-ui/core';
 import { inject, observer } from 'mobx-react';
 import "typeface-roboto";
 import Converter from './containers/Converter/Converter';

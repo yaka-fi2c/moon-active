@@ -57,7 +57,8 @@ export default class Converter extends React.Component {
             baseCoin={ratesStore.baseConversionCoin.key}
             targetCoin={ratesStore.targetConversionCoin.key}
             results={(Math.floor(10000 * ratesStore.calculatedAmount) / 10000).toFixed(4)}
-            timeStamp={ratesStore.timeStamp} />
+            timeStamp={ratesStore.timeStamp}
+            sourceAmount={ratesStore.sourceAmount}/>
         </div>
       </div>
     )

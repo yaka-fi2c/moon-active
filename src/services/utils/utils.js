@@ -1,3 +1,4 @@
+export const TODAYS_RATES_CURRENCIES = ["EUR", "GBP", "CAD", "MXN", "JPY"];
 
 
 export const findCoinBase = (currencies, coin) => {
@@ -38,4 +39,8 @@ export const getHistoryByPeriod = (period, arr) => {
         return new Date(b.x) - new Date(a.x);
     })
     return data;
+}
+
+export const getRatesData = (todaysRates, currencies, data) => {
+ 
 }
