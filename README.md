@@ -1,6 +1,6 @@
 Exchange rate application by yakir fitousi
 
-### `npm install inside project filder`
+### `npm install inside project folder`
 
 ### `npm start`
 
