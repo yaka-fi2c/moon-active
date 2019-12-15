@@ -6,9 +6,6 @@ import {Paper, Tabs, Tab} from '@material-ui/core';
 @inject('ratesStore')
 @observer
 export default class HistoricalRates extends React.Component {
-  state = {
-    value: 0,
-  };
   componentWillMount() {
     this.props.ratesStore.historicalRates();
   }

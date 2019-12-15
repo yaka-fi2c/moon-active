@@ -25,7 +25,6 @@ export default function DetailsTabs(props) {
                 {renderTabsLabel(props.tabsLabel)}
             </Tabs>
             <Box
-                width={600}
                 p={2}>
                 {props.children(activeTab)}
             </Box>
