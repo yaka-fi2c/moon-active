@@ -1,10 +1,12 @@
 import { observable, action, computed } from 'mobx';
 import { getRates, getHistoricalRates } from '../services/backendService';
-import { findCoinBase, calculateTodaysRate, getHistoryByPeriod, checkBaseCoin } from '../utils/utils';
+import { findCoinBase, calculateTodaysRate, getHistoryByPeriod } from '../services/utils/utils';
+
+const TODAYS_RATES_CURRENCIES = ["EUR", "GBP", "CAD", "MXN", "JPY"];
 
 class RatesStore {
 
-    @observable todaysRate = [];
+    @observable todaysRates = [];
     @observable currencies = [];
     @observable ratesHistory = [];
     @observable baseConversionCoin = {};
@@ -12,29 +14,25 @@ class RatesStore {
     @observable sourceAmount = 1000;
     @observable period = 30;
     @observable timeStamp;
+    @observable historyTab = 0;
 
 
     @action async todaysRatesData() {
+        // set up all data before app is up
         const data = await getRates();
-        console.log(data.rates)
         for (let [key, value] of Object.entries(data.rates)) {
-            if (key === "EUR" ||
-                key === "GBP" ||
-                key === "CAD" ||
-                key === "MXN" ||
-                key === "JPY") {
-                this.todaysRate.push({ key: key, value: value })
-            };
+            if (TODAYS_RATES_CURRENCIES.includes(key)) {
+                this.todaysRates.push({ key: key, value: value })
+            }
             this.currencies.push({ key: key, value: value })
         };
         this.timeStamp = data.date;
         this.baseConversionCoin = findCoinBase(this.currencies, "USD");
         this.targetConversionCoin = findCoinBase(this.currencies, "ILS");
-
-        this.historicalRates();
     }
 
     @action async historicalRates() {
+        // get last year history and handle data
         const historyData = await getHistoricalRates(this.baseConversionCoin.key, this.targetConversionCoin.key);
         this.ratesHistory = [];
         for (let [key, value] of Object.entries(historyData.rates)) {
@@ -44,7 +42,6 @@ class RatesStore {
 
     @action setBaseCurrency(coin) {
         this.baseConversionCoin = findCoinBase(this.currencies, coin);
-        checkBaseCoin(this.baseConversionCoin, this.todaysRate, this.currencies);
     }
 
     @action setTargetCurrency(coin) {
@@ -59,8 +56,35 @@ class RatesStore {
         this.period = period;
     }
 
+    @action setHistoryTabValue(value) {
+        this.historyTab = value
+    }
+
+    @action isIlsIncluded() {
+        if (this.baseConversionCoin.key !== "ILS" && this.targetConversionCoin.key !== "ILS") {
+            let ils = findCoinBase(this.currencies, "ILS");
+            if (!this.todaysRates.includes(ils)) {
+                this.todaysRates.unshift(ils);
+                this.todaysRates.pop();
+            }
+        } else {
+            let updatedTodaysRates = []
+            for (let rate of this.currencies) {
+                if (TODAYS_RATES_CURRENCIES.includes(rate.key)) {
+                    updatedTodaysRates.push({ key: rate.key, value: rate.value });
+                }
+            };
+            this.todaysRates = updatedTodaysRates;
+        }
+    }
+
     @computed get todaysRateCalc() {
-        return calculateTodaysRate(this.todaysRate, this.baseConversionCoin, this.currencies, this.targetConversionCoin);
+        return calculateTodaysRate(
+            this.todaysRates,
+            this.baseConversionCoin,
+            this.currencies,
+            this.targetConversionCoin
+        );
     }
 
     @computed get calculatedAmount() {

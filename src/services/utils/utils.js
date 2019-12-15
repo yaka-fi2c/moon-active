@@ -1,22 +1,19 @@
+
+
 export const findCoinBase = (currencies, coin) => {
     return currencies.find(el => el.key === coin);
 };
 
-export const calculateTodaysRate = (rates, baseCoin) => {
-    const todaysRates = rates.map(
-        el => Object.assign({}, el, { value: (1 / baseCoin.value) / (1 / el.value) }
-        ));
-    return todaysRates;
-};
+export const calculateTodaysRate = (todaysRates, baseCoin, allCurrencies, targetCoin) => {
+    const updatedTodaysRates = todaysRates.map(
+        rate => {
+            if (rate.key === baseCoin.key) {
+                rate = findCoinBase(allCurrencies, "USD");
+            }
+            return Object.assign({}, rate, { value: (1 / baseCoin.value) / (1 / rate.value) })
+        });
 
-export const checkBaseCoin = (baseCoin, todaysRates, currencies) => {
-    for (let rate of todaysRates) {
-        if (rate.key === baseCoin.key) {
-            let usd = findCoinBase(currencies, "USD");
-            usd.value = (1 / baseCoin.value) / (1 / usd.value);
-            todaysRates[todaysRates.indexOf(rate)] = usd;
-        };
-    };
+    return updatedTodaysRates;
 };
 
 export const setYears = () => {

@@ -1,21 +1,21 @@
 import React from 'react';
 import { observer, inject } from "mobx-react";
-import DataChart from '../components/dataChart';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-
+import DataChart from '../../components/DataChart/dataChart';
+import {Paper, Tabs, Tab} from '@material-ui/core';
+ 
 @inject('ratesStore')
 @observer
 export default class HistoricalRates extends React.Component {
   state = {
     value: 0,
   };
-
+  componentWillMount() {
+    this.props.ratesStore.historicalRates();
+  }
   render() {
     const ratesStore = this.props.ratesStore;
     const handleChange = (event, value) => {
-      this.setState({ value });
+      ratesStore.setHistoryTabValue(value)
       switch (value) {
         case 0:
           ratesStore.setPeriod(30);
@@ -29,6 +29,8 @@ export default class HistoricalRates extends React.Component {
         case 3:
           ratesStore.setPeriod(365);
           break
+        default:
+          ratesStore.setPeriod(30);
       }
     };
 
@@ -59,7 +61,7 @@ export default class HistoricalRates extends React.Component {
       <div>
         <Paper square>
           <Tabs
-            value={this.state.value}
+            value={ratesStore.historyTab}
             indicatorColor="primary"
             textColor="primary"
             onChange={handleChange}

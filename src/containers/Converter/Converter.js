@@ -1,9 +1,9 @@
 import React from 'react';
 import { observer, inject } from "mobx-react";
-import AmountInput from '../components/amountInput';
-import CurrencySelect from '../components/CurrencySelect';
-import ConversionDetails from '../components/conversionDetails';
-import converter from './converter.css'
+import AmountInput from '../../components/AmountInput/AmountInput';
+import CurrencySelect from '../../components/CurrencySelect/CurrencySelect';
+import ConversionDetails from '../../components/ConversionDeatails/ConversionDetails';
+import './converter.css'
 
 @inject('ratesStore')
 @observer
@@ -13,11 +13,13 @@ export default class Converter extends React.Component {
   onSelectBaseChange = e => {
     this.props.ratesStore.setBaseCurrency(e.target.value);
     this.props.ratesStore.historicalRates();
+    this.props.ratesStore.isIlsIncluded();
   };
 
   onSelectTargetChange = e => {
     this.props.ratesStore.setTargetCurrency(e.target.value);
     this.props.ratesStore.historicalRates();
+    this.props.ratesStore.isIlsIncluded();
   };
 
   render() {
@@ -31,7 +33,7 @@ export default class Converter extends React.Component {
               value={(Math.floor(ratesStore.sourceAmount * 20) / 20).toFixed(2)}
               disabled={false} />
             <CurrencySelect
-              value={ratesStore.baseConversionCoin.key}
+              value={ratesStore.baseConversionCoin.key || "USD"}
               currencies={ratesStore.currencies}
               onChange={this.onSelectBaseChange}
               label={"Please select base currency"}
@@ -43,7 +45,7 @@ export default class Converter extends React.Component {
               value={(Math.floor(ratesStore.calculatedAmount * 20) / 20).toFixed(2)}
               disabled={true} />
             <CurrencySelect
-              value={ratesStore.targetConversionCoin.key}
+              value={ratesStore.targetConversionCoin.key || "ILS"}
               currencies={ratesStore.currencies}
               onChange={this.onSelectTargetChange}
               label={"Please select target currency"}

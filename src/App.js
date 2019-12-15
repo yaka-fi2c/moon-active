@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header';
-import TodaysRate from './containers/TodaysRate';
-import DetailsTabs from './containers/DetailsTabs';
+import Header from './components/Header/Header';
+import TodaysRate from './containers/TodaysRates/TodaysRate';
+import DetailsTabs from './containers/DetailsTabs/DetailsTabs';
 import Grid from '@material-ui/core/Grid';
 import { inject, observer } from 'mobx-react';
+import "typeface-roboto";
+import Converter from './containers/Converter/Converter';
+import HistoricalRates from './containers/HistoricalRates/HistoricalRates';
 
 @inject('ratesStore')
 @observer
@@ -12,8 +15,15 @@ class App extends React.Component {
   componentDidMount() {
     this.props.ratesStore.todaysRatesData();
   }
+
+  tabsLabel = ["Currency converter", "Historical Rates"];
+
+  tabComponents = [
+    <Converter />,
+    <HistoricalRates />
+  ]
+
   render() {
-    // const ratesStore = this.props.ratesStore;
     return (
       <div className="App">
         <Header />
@@ -21,13 +31,16 @@ class App extends React.Component {
           <Grid
             container
             justify="space-around"
-            alignItems="stretch"
           >
             <Grid
               item
               xs={12}
               sm={6}>
-              <DetailsTabs />
+              <DetailsTabs tabsLabel={this.tabsLabel}>
+                {activeTab => {
+                  return this.tabComponents[activeTab];
+                }}
+              </DetailsTabs>
             </Grid>
             <Grid
               item

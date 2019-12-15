@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import todaysRate from './todaysRate.css'
-import Icon from '../components/icon';
+import Icon from "../../components/IconComponent/icon"
+import './todaysRate.css'
 
 @inject('ratesStore')
 @observer
@@ -15,7 +15,7 @@ export default class TodaysRate extends React.Component {
           <span>1 {ratesStore.baseConversionCoin.key} =</span>
         </div>
         <ul>
-          {this.props.ratesStore.todaysRateCalc.map((rate, ind) => (
+          {ratesStore.todaysRateCalc.map((rate, ind) => (
             <li
               className="rate-list-item"
               key={ind}>

@@ -1,4 +1,4 @@
-import { setYears } from "../utils/utils";
+import { setYears } from "./utils/utils";
 const RATES_END_POINT = "https://api.exchangeratesapi.io/latest?base=USD";
 const HISTORICAL_RATES_ENDPOINT = "https://api.exchangeratesapi.io/history?start_at=";
 

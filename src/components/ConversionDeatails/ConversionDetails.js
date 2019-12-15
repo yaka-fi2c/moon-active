@@ -1,10 +1,7 @@
 import React from 'react';
-import conversionDetails from './conversionDetails.css';
+import './conversionDetails.css';
 
 export default class ConversionDetails extends React.Component {
-    constructor(props) {
-        super(props)
-    }
     render() {
 
         return (

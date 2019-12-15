@@ -16,10 +16,6 @@
     background-position: -16px -143px;
 }
 
-.flag-text.THB::after {
-    content: 'a test'
-}
-
 .flag.TRY {
     background-position: -144px -143px
 }

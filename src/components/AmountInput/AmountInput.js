@@ -1,11 +1,8 @@
 import React from 'react';
-import { TextField, MenuItem } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import "./amountInput.css";
 
 export default class AmountInput extends React.Component {
-    constructor(props) {
-        super(props)
-    }
     render() {
 
         return (

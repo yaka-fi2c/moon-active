@@ -1,13 +1,9 @@
 import React from 'react';
 import { TextField, MenuItem, ListItemIcon } from '@material-ui/core';
-import currencySelect from './currencySelect.css';
-import flags from "../flags/flags.css"
-import Icon from './icon';
+import Icon from '../IconComponent/icon';
+import './currencySelect.css';
 
 export default class CurrencySelect extends React.Component {
-    constructor(props) {
-        super(props)
-    }
     render() {
         return (
             <div className="select-wrapper">
@@ -25,7 +21,7 @@ export default class CurrencySelect extends React.Component {
                         <MenuItem key={ind} value={option.key}>
                             {option.key}
                             <ListItemIcon>
-                                <Icon className="flag" icon={option.key} />
+                                <Icon icon={option.key} />
                             </ListItemIcon>
                         </MenuItem>
                     ))}
