@@ -1,13 +1,17 @@
 import React from 'react';
 import { observer, inject } from "mobx-react";
 import DataChart from '../../components/DataChart/dataChart';
-import {Paper, Tabs, Tab} from '@material-ui/core';
- 
+import { Paper, Tabs, Tab } from '@material-ui/core';
+
 @inject('ratesStore')
 @observer
 export default class HistoricalRates extends React.Component {
   componentWillMount() {
-    this.props.ratesStore.historicalRates();
+    // send request only if we didnt fetched data already
+    if (!this.props.ratesStore.ratesHistory.length) {
+      this.props.ratesStore.historicalRates();
+
+    }
   }
   render() {
     const ratesStore = this.props.ratesStore;
